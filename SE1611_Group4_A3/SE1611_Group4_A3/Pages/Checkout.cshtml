@@ -1,0 +1,33 @@
+﻿@page
+@model SE1607_Group4_A3.Pages.CheckoutModel
+@{
+}
+<h1>Checkout View</h1>
+<h2>Order</h2>
+<hr />
+<div class="row mt-2">
+    <div class="col-md-6">
+    <form asp-action="POST">
+        <label asp-for="Order.FirstName"></label><br />
+        <input class="form-control" asp-for="Order.FirstName" value="@Model.user.FirstName" /><br />
+        <label asp-for="Order.LastName"></label><br />
+        <input class="form-control" asp-for="Order.LastName" value="@Model.user.LastName" /><br />
+        <label asp-for="Order.Address"></label><br />
+        <input class="form-control" asp-for="Order.Address" value="@Model.user.Address" /><br />
+        <label asp-for="Order.City"></label><br />
+        <input class="form-control" asp-for="Order.City" value="@Model.user.City" /><br />
+        <label asp-for="Order.State"></label><br />
+        <input class="form-control" asp-for="Order.State" value="@Model.user.State" /><br />
+        <label asp-for="Order.Country"></label><br />
+        <input class="form-control" asp-for="Order.Country" value="@Model.user.Country" /><br />
+        <label asp-for="Order.Phone"></label><br />
+        <input class="form-control" asp-for="Order.Phone" value="@Model.user.Phone" /><br />
+        <label asp-for="Order.Email"></label><br />
+        <input class="form-control" asp-for="Order.Email" value="@Model.user.Email" /><br />
+        <label asp-for="Order.Total"></label><br />
+        <input class="form-control" asp-for="Order.Total" readonly value="@Model.Total" /><br />
+        <button class="btn btn-primary" asp-page-handler="order">Order</button>
+        </form>
+    </div>
+    <div class="col-md-6"></div>
+</div>

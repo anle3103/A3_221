@@ -1,0 +1,47 @@
+﻿@page
+@model SE1607_Group4_A3.Pages.ShoppingModel
+@{
+}
+<script>
+   function pageHandler(isNext){
+       var pageInput = document.getElementById('PageNum');
+       if(isNext){
+            pageInput.value = @(Model.PageNum*3+3 >= Model.Count ? Model.PageNum : Model.PageNum+1)
+       } else {
+           pageInput.value = @(Model.PageNum == 0 ? 0 : Model.PageNum-1)
+       }
+      document.getElementById("getForm").submit();
+   }
+</script>
+<form method="get" id="getForm">
+    <h1>Shopping</h1>
+    <span>Genre name: </span>
+    <select asp-for="GenreId" asp-items="Model.Genres"></select>
+    <span> Find by name: </span>
+    <input asp-for="Title"/>
+    <button class="btn btn-primary">Search</button>
+    <span>|</span>
+    <input asp-for="PageNum" hidden/>
+    <a asp-page="/Shopping">Back to full list</a>
+</form>
+
+<div class="row">
+    @foreach(var album in Model.Albums)
+    {
+      @:<div class="col-md-3">
+          <form asp-action="POST">
+            <input asp-for="AlbumId" hidden="true" value="@album.AlbumId"/>
+            <img src="@album.AlbumUrl" /><span style="color: var(--bs-primary)">$@album.Price</span>
+            <p style="color: var(--bs-primary)">@album.Title</p>
+            <p>Artist: @album.Artist.Name</p>
+            <p>Genre: @album.Genre.Name</p>
+            <button class="btn btn-primary" asp-page-handler="addCart">Add to cart</button>
+          </form>
+      @:</div>
+    }
+</div>
+<div class="mt-3">
+    <a  style="display:inline-block" onclick="pageHandler(false)"  class="btn btn-primary">Previous</a>
+    <a  style="display:inline-block" onclick="pageHandler(true)" class="btn btn-primary">Next</a>
+    <span>Page: @(Model.PageNum + 1) / @(Model.TotalPage + 1)</span>
+</div>

@@ -1,0 +1,65 @@
+﻿@page
+@model SE1607_Group4_A3.Pages.CartModel
+@{
+}
+<style>
+    #cartTable{
+        border: 2px solid var(--bs-primary)
+    }
+    #tfoot{
+        border-top: 2px dotted black
+    }
+</style>
+@{
+    string username = HttpContext.Session.GetString(Constant.userSessionKey);
+    bool checkoutBtnDisabled = Model.GrandTotal <= 0 || string.IsNullOrEmpty(username);
+}
+<h1>Cart</h1>
+@if (checkoutBtnDisabled)
+{
+    <a class="btn btn-primary disabled"  href="#">Checkout</a>
+} else
+{
+   <a class="btn btn-primary"  asp-page="/Checkout">Checkout</a> 
+}
+
+<table class="table mt-3" id="cartTable">
+    <thead>
+        <tr>
+            <th>Album</th>
+            <th>Price</th>
+            <th>Count</th>
+            <th>Date created</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model.Carts != null  && Model.Carts.Count > 0)
+            {
+                 foreach(var cart in Model.Carts)
+                {
+                    @:<tr>
+                        <td>
+                            <a asp-page-handler="ClickTitle" asp-route-id="@cart.RecordId"> @cart.Album.Title                            </a>
+                        </td>
+                        <td>@cart.Album.Price</td>
+                        <td>@cart.Count</td>
+                        <td>@(cart.DateCreated.ToString("dd/MM/yyyy"))</td>
+                        <td>
+                            <a asp-page-handler="remove" asp-route-id="@cart.RecordId">Remove from cart</a>
+                        </td>
+                    @:</tr>
+            
+                }
+            }
+        }
+        <tr id="tfoot">
+            <th></th>
+            <th></th>
+            <th>Total: @Model.GrandTotal</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tbody>
+</table>

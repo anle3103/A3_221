@@ -1,0 +1,27 @@
+﻿@page "{handler?}"
+@model SE1607_Group4_A3.Pages.LoginModel
+@{
+}
+<h1>Login</h1>
+<h2>User</h2>
+@Html.ValidationMessage("LoginFailed", "", new{@class = "text-danger"})
+<hr />
+<div class="row">
+    <div class="col-md-6">
+       
+        <div class="row">
+            <form asp-action="POST">
+                <label asp-for="User.UserName"></label><br />
+                <span asp-validation-for="User.UserName" class="text-danger"></span><br />
+                <input class="form-control" asp-for="User.UserName" /><br />
+
+                <label asp-for="User.Password"></label><br />
+                <span asp-validation-for="User.Password" class="text-danger"></span><br />
+                <input class="form-control" asp-for="User.Password" /><br />
+
+                <button class="btn btn-primary">Login</button><br />
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
